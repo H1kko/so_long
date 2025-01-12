@@ -6,39 +6,38 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 09:25:12 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/10 17:35:53 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/12 14:15:37 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-#include <stdio.h>
 
-void	verif_features(t_map *map)
+void	verif_features(char **map)
 {
-	int		p;
-	int		c;
-	int		e;
-	t_map	*tmp;
 	
-	p = 0;
-	c = 0;
-	e = 0;
-	tmp = map;
-	while (map)
+	int	tab[5];
+
+	tab[0] = 0;
+	tab[1] = 0;
+	tab[2] = 0;
+	tab[3] = 0;
+	while (map[tab[3]])
 	{
-		if (ft_strchr(map->content, 'P'))
-			p++;
-		if (ft_strchr(map->content, 'C'))
-			c++;
-		if (ft_strchr(map->content, 'E'))
-			e++;
-		map = map->next;
-	}
-		if (p != 1 || c < 1 || e != 1)
+		tab[4] = 0;
+		while (map[tab[3]][tab[4]])
 		{
-			ft_lstclear(&tmp, free);
-			ft_perror("Wrong map config");
+			if (map[tab[3]][tab[4]] == 'E')
+				tab[2]++;
+			if (map[tab[3]][tab[4]] == 'P')
+				tab[0]++;
+			if (map[tab[3]][tab[4]] == 'C')
+				tab[1]++;
+			tab[4]++;
 		}
+		tab[3]++;
+	}
+	if (tab[0] != 1 || tab[1] < 1 || tab[2] != 1)
+		ft_perror("Wrong map config", map);
 }
 int format_checker(t_map *map)
 {
@@ -48,7 +47,6 @@ int format_checker(t_map *map)
 
 	tmp = map;
 	len = ft_strlen(map->content);
-	printf("%d", len);
 	while (map)
 	{
 		i = 0;
@@ -59,7 +57,7 @@ int format_checker(t_map *map)
 				|| ft_strlen(map->content) != (size_t)len || (map->content[0] != '1' || map->content[len - 2] != '1'))
 	 		{
 	 			ft_lstclear(&tmp, free);
-	 			ft_perror("Map format error");
+	 			ft_perror("Map format error", NULL);
 	 		}
 			i++;
 	 	}
@@ -80,7 +78,7 @@ void edge_checker(t_map *map)
 		if (map->content[i++] != '1')
 		{
 			ft_lstclear(&tmp, free);
-	 		ft_perror("Map format error");
+	 		ft_perror("Map format error", NULL);
 		}
 	}
 	i = 0;
@@ -90,14 +88,13 @@ void edge_checker(t_map *map)
 		if (map->content[i++] != '1')
 		{
 			ft_lstclear(&tmp, free);
-	 		ft_perror("Map format error");
+	 		ft_perror("Map format error", NULL);
 		}
 	}
 }
 
 void	is_map_valid(t_map *map)
 {
-	verif_features(map);
 	format_checker(map);
 	edge_checker(map);
 }

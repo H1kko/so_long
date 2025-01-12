@@ -1,35 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_utils.c                                    :+:      :+:    :+:   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 10:05:34 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/12 13:59:15 by maregnie         ###   ########.fr       */
+/*   Created: 2025/01/12 14:30:29 by maregnie          #+#    #+#             */
+/*   Updated: 2025/01/12 14:55:08 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
-
-void	ft_perror(char *str, char **map)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		write (1, &str[i++], 1);
-	write(1, "\n", 1);
-	if (map)
-		ft_free(map);
-	exit (-1);
-}
-void	ft_free(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		free(str[i++]);
-	free(str);
-}
