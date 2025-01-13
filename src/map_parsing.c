@@ -6,7 +6,7 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:55:34 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/12 14:14:56 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:55:00 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,29 @@ char	**get_map_as_tab(t_map *lstmap)
 	}
 	map[i] = 0;
 	ft_lstclear(&tmp, free);
-	verif_features(map);
 	return (map);
 }
 
 char	**get_map(char *argv)
 {
 	char	**map;
-
-	map = get_map_as_tab(get_map_as_list(argv));
+	t_map	*lstmap;
+	t_map	*duped_lstmap;
+	t_coos 	coos;
+	char	**duped_map;
+	
+	int		x;
+	int 	y;
+	
+	lstmap = (get_map_as_list(argv));
+	map = get_map_as_tab(lstmap);
+	coos = get_player_coos(map);
+	x = coos.x;
+	y = coos.y;
+	duped_lstmap = (get_map_as_list(argv));
+	duped_map = get_map_as_tab(duped_lstmap);
+	flood_fill(duped_map, verif_features(duped_map), x, y);
+	check_floodfill(duped_map, map);
+	ft_free(duped_map);
 	return (map);
 }

@@ -6,13 +6,13 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 09:25:12 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/12 14:15:37 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:19:26 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	verif_features(char **map)
+int	verif_features(char **map)
 {
 	
 	int	tab[5];
@@ -38,6 +38,7 @@ void	verif_features(char **map)
 	}
 	if (tab[0] != 1 || tab[1] < 1 || tab[2] != 1)
 		ft_perror("Wrong map config", map);
+	return (tab[1]);
 }
 int format_checker(t_map *map)
 {

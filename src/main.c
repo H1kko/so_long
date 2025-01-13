@@ -6,7 +6,7 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 11:18:57 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/12 14:44:52 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:29:20 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,5 @@ int	main (int argc, char **argv)
 		i++;
 	}
 	//========print map=========//
-	get_player_coos(map);
 	ft_free(map);
 }
