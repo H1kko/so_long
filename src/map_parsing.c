@@ -6,7 +6,7 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:55:34 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/13 16:55:00 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:54:24 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_map	*get_map_as_list(char *argv)
 	t_map	*map;
 	char	*tmp;
 	int		fd;
-	
+
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 		ft_perror("Invalid name of map", NULL);
@@ -45,7 +45,8 @@ char	**get_map_as_tab(t_map *lstmap)
 
 	tmp = lstmap;
 	i = 0;
-	is_map_valid(lstmap);
+	format_checker(lstmap);
+	edge_checker(lstmap);
 	map = malloc(sizeof(char *) * (ft_lstsize(lstmap) + 1));
 	if (!map)
 	{
@@ -66,22 +67,15 @@ char	**get_map(char *argv)
 {
 	char	**map;
 	t_map	*lstmap;
-	t_map	*duped_lstmap;
-	t_coos 	coos;
-	char	**duped_map;
-	
+	t_coos	coos;
 	int		x;
-	int 	y;
-	
+	int		y;
+
 	lstmap = (get_map_as_list(argv));
 	map = get_map_as_tab(lstmap);
 	coos = get_player_coos(map);
 	x = coos.x;
 	y = coos.y;
-	duped_lstmap = (get_map_as_list(argv));
-	duped_map = get_map_as_tab(duped_lstmap);
-	flood_fill(duped_map, verif_features(duped_map), x, y);
-	check_floodfill(duped_map, map);
-	ft_free(duped_map);
+	manage_floodfill(map, argv, x, y);
 	return (map);
 }

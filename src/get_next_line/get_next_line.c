@@ -6,7 +6,7 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 09:56:12 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/09 16:34:18 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:43:57 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	*stockstring(int fd, char *allstrs)
 	}
 	return (allstrs);
 }
-
 
 char	*get_next_line(int fd)
 {

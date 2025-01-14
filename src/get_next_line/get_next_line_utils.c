@@ -6,12 +6,11 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 10:48:53 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/09 16:23:11 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:44:12 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 char	*get_lines(char *buffer)
 {

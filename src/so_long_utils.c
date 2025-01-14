@@ -6,7 +6,7 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:05:34 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/12 13:59:15 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:28:52 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_perror(char *str, char **map)
 		ft_free(map);
 	exit (-1);
 }
+
 void	ft_free(char **str)
 {
 	int	i;

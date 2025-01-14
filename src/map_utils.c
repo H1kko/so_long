@@ -6,7 +6,7 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 14:30:29 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/13 16:55:53 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:56:27 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	check_floodfill(char **duped_map, char **map)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	while (duped_map[i])
 	{
@@ -27,7 +27,7 @@ void	check_floodfill(char **duped_map, char **map)
 			{
 				ft_free(map);
 				ft_perror("No correct path exists", duped_map);
-			}	
+			}
 			j++;
 		}
 		i++;
@@ -41,7 +41,7 @@ t_coos	get_player_coos(char **map)
 	t_coos	point;
 
 	i = 0;
-	while(map[i])
+	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
@@ -60,14 +60,14 @@ t_coos	get_player_coos(char **map)
 
 void	flood_fill(char **map, int collectibles, int x, int y)
 {
-	int exit;
+	int	exit;
 	int	total_collectibles;
 
 	total_collectibles = collectibles;
 	exit = 1;
-	if (!map || map[x][y] == '1' || x > 500 || y > 500 || map[x][y] == '1')
+	if (!map || map[y][x] == '1' || x > 500 || y > 500 || map[y][x] == '1')
 		return ;
-	map[x][y] = '1';
+	map[y][x] = '1';
 	flood_fill(map, collectibles, x + 1, y);
 	flood_fill(map, collectibles, x - 1, y);
 	flood_fill(map, collectibles, x, y + 1);
