@@ -6,7 +6,7 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 11:29:10 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/14 17:27:38 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:14:42 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_sprite
 	mlx_image_t	*player;
 	mlx_image_t	*coin;
 	mlx_image_t	*exit;
-}					t_sprite;
+}				t_sprite;
 
 typedef struct s_game
 {
@@ -58,7 +58,10 @@ typedef struct s_game
 	char		**map;
 	int			w_length;
 	int			w_height;
+	int			player_x;
+	int 		player_y;
 }				t_game;
+
 
 void		edge_checker(t_map *map);
 int			format_checker(t_map *map);
@@ -74,6 +77,9 @@ void		flood_fill(char **map, int collectibles, int x, int y);
 char		**dup_map(char **map, int nb_line);
 void		check_floodfill(char **duped_map, char **map);
 t_textures	*get_textures(void);
-int			put_textures(t_game *game);
+int			put_textures(t_game *game, char elem, int x, int y);
+void		free_textures(t_game *game);
 void		manage_floodfill(char **map, char *argv, int x, int y);
+int			place_textures(t_game *game);
+void		move_right(t_game *game);
 #endif

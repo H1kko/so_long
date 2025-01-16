@@ -6,7 +6,7 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:05:34 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/14 10:28:52 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:33:54 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,40 @@ void	ft_perror(char *str, char **map)
 	int	i;
 
 	i = 0;
+	write(1, "Error\n", 6);
 	while (str[i])
 		write (1, &str[i++], 1);
 	write(1, "\n", 1);
 	if (map)
 		ft_free(map);
 	exit (-1);
+}
+
+void	free_sprite(mlx_image_t	*sprite, t_game *game)
+{
+	if (sprite)
+	mlx_delete_image(game->mlx, sprite);
+}
+
+void	free_texture(mlx_texture_t *texture)
+{
+	if (texture)
+		mlx_delete_texture(texture);
+}
+void	free_textures(t_game *game)
+{
+	free_texture(game->textures->coin);
+	free_texture(game->textures->exit);
+	free_texture(game->textures->player);
+	free_texture(game->textures->ground);
+	free_texture(game->textures->wall);
+	free_sprite(game->sprite->ground, game);
+	free_sprite(game->sprite->wall, game);
+	free_sprite(game->sprite->coin, game);
+	free_sprite(game->sprite->exit, game);
+	free_sprite(game->sprite->player, game);
+	free(game->textures);
+	free(game->sprite);
 }
 
 void	ft_free(char **str)

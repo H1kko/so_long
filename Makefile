@@ -20,6 +20,7 @@ SRC =	src/main.c \
 		src/mapchecker.c \
 		src/map_parsing.c \
 		src/map_utils.c \
+		src/manage_movement.c \
 		src/get_next_line/get_next_line.c \
 		src/get_next_line/get_next_line_utils.c 
 
@@ -39,7 +40,7 @@ fclean : clean
 	make fclean -C libft
 
 clean :
-	$(RM) $(NAME)
+	$(RM) $(OBJ)
 	make clean -C libft
 
 re : fclean all
