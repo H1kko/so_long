@@ -1,6 +1,6 @@
 NAME = so_long
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 MLX			= MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
 

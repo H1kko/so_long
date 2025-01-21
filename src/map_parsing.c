@@ -6,11 +6,27 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:55:34 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/14 10:54:24 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:24:09 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+int	free_game(t_game *game, int textures)
+{
+	mlx_t	*tmp;
+
+	tmp = game->mlx;
+	if (textures)
+		free_textures(game);
+	ft_free(game->map);
+	free(game);
+	if (!tmp)
+		return (0);
+	mlx_terminate(tmp);
+	exit (-1);
+	return (0);
+}
 
 t_map	*get_map_as_list(char *argv)
 {
@@ -20,7 +36,7 @@ t_map	*get_map_as_list(char *argv)
 
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		ft_perror("Invalid name of map", NULL);
+		return (NULL);
 	map = NULL;
 	while (!map || tmp)
 	{
@@ -45,8 +61,8 @@ char	**get_map_as_tab(t_map *lstmap)
 
 	tmp = lstmap;
 	i = 0;
-	format_checker(lstmap);
-	edge_checker(lstmap);
+	if (!format_checker(lstmap) || !edge_checker(lstmap))
+		return (NULL);
 	map = malloc(sizeof(char *) * (ft_lstsize(lstmap) + 1));
 	if (!map)
 	{
@@ -63,19 +79,29 @@ char	**get_map_as_tab(t_map *lstmap)
 	return (map);
 }
 
-char	**get_map(char *argv)
+char	**get_map(char *argv, t_game *game)
 {
 	char	**map;
 	t_map	*lstmap;
-	t_coos	coos;
-	int		x;
-	int		y;
 
 	lstmap = (get_map_as_list(argv));
+	if (!lstmap)
+	{
+		free(game);
+		ft_perror("Invalid name of map", NULL);
+	}
 	map = get_map_as_tab(lstmap);
-	coos = get_player_coos(map);
-	x = coos.x;
-	y = coos.y;
-	manage_floodfill(map, argv, x, y);
+	if (!map)
+	{
+		ft_putendl_fd("Error\nMap format error", 1);
+		return (NULL);
+	}
+	if (!verif_features(map))
+	{
+		free(game);
+		ft_perror("Wrong map config", map);
+	}
+	get_player_coos(map, game);
+	manage_floodfill(map, argv, game->player_x, game->player_y);
 	return (map);
 }

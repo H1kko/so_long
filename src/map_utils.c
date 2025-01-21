@@ -6,11 +6,61 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 14:30:29 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/16 16:58:35 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:49:08 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+int	put_exit(t_game *game)
+{
+	int			x;
+	int			y;
+	mlx_image_t	*tmp;
+
+	y = 0;
+	while (game->map[y])
+	{
+		x = 0;
+		while (game->map[y][x])
+		{
+			if (game->map[y][x] == 'E')
+			{
+				tmp = game->sprite->exit;
+				mlx_image_to_window(game->mlx, tmp, x * 32, y * 32);
+				return (1);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+int	set_exit(t_game *game)
+{
+	int	coins;
+	int	x;
+	int	y;
+
+	coins = 0;
+	y = 0;
+	while (game->map[y])
+	{
+		x = 0;
+		while (game->map[y][x])
+		{
+			if (game->map[y][x] == 'C')
+				coins++;
+			x++;
+		}
+		y++;
+	}
+	if (coins == 0)
+		return (put_exit(game));
+	else
+		return (0);
+}
 
 void	check_floodfill(char **duped_map, char **map)
 {
@@ -34,11 +84,10 @@ void	check_floodfill(char **duped_map, char **map)
 	}
 }
 
-t_coos	get_player_coos(char **map)
+void	get_player_coos(char **map, t_game *game)
 {
 	int		i;
 	int		j;
-	t_coos	point;
 
 	i = 0;
 	while (map[i])
@@ -48,14 +97,13 @@ t_coos	get_player_coos(char **map)
 		{
 			if (map[i][j] == 'P')
 			{
-				point.x = j;
-				point.y = i;
+				game->player_x = j;
+				game->player_y = i;
 			}
 			j++;
 		}
 		i++;
 	}
-	return (point);
 }
 
 void	flood_fill(char **map, int collectibles, int x, int y)

@@ -6,7 +6,7 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 09:25:12 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/14 13:56:07 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:09:04 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	verif_features(char **map)
 		tab[3]++;
 	}
 	if (tab[0] != 1 || tab[1] < 1 || tab[2] != 1)
-		ft_perror("Wrong map config", map);
+		return (0);
 	return (tab[1]);
 }
 
@@ -60,7 +60,7 @@ int	format_checker(t_map *map)
 				|| (map->content[0] != '1' || map->content[len - 2] != '1'))
 			{
 				ft_lstclear(&tmp, free);
-				ft_perror("Map format error", NULL);
+				return (0);
 			}
 			i++;
 		}
@@ -69,7 +69,7 @@ int	format_checker(t_map *map)
 	return (len);
 }
 
-void	edge_checker(t_map *map)
+int	edge_checker(t_map *map)
 {
 	int		i;
 	t_map	*tmp;
@@ -81,7 +81,7 @@ void	edge_checker(t_map *map)
 		if (map->content[i++] != '1')
 		{
 			ft_lstclear(&tmp, free);
-			ft_perror("Map format error", NULL);
+			return (0);
 		}
 	}
 	i = 0;
@@ -91,9 +91,10 @@ void	edge_checker(t_map *map)
 		if (map->content[i++] != '1')
 		{
 			ft_lstclear(&tmp, free);
-			ft_perror("Map format error", NULL);
+			return (0);
 		}
 	}
+	return (1);
 }
 
 void	manage_floodfill(char **map, char *argv, int x, int y)
@@ -101,7 +102,9 @@ void	manage_floodfill(char **map, char *argv, int x, int y)
 	t_map	*duped_lstmap;
 	char	**duped_map;
 	int		collectibles;
+	t_game	*game;
 
+	game = NULL;
 	collectibles = verif_features(map);
 	duped_lstmap = (get_map_as_list(argv));
 	duped_map = get_map_as_tab(duped_lstmap);
@@ -109,4 +112,3 @@ void	manage_floodfill(char **map, char *argv, int x, int y)
 	check_floodfill(duped_map, map);
 	ft_free(duped_map);
 }
- 

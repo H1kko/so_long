@@ -6,7 +6,7 @@
 /*   By: maregnie <maregnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 10:05:34 by maregnie          #+#    #+#             */
-/*   Updated: 2025/01/16 14:33:54 by maregnie         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:33:54 by maregnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_perror(char *str, char **map)
 void	free_sprite(mlx_image_t	*sprite, t_game *game)
 {
 	if (sprite)
-	mlx_delete_image(game->mlx, sprite);
+		mlx_delete_image(game->mlx, sprite);
 }
 
 void	free_texture(mlx_texture_t *texture)
@@ -37,6 +37,7 @@ void	free_texture(mlx_texture_t *texture)
 	if (texture)
 		mlx_delete_texture(texture);
 }
+
 void	free_textures(t_game *game)
 {
 	free_texture(game->textures->coin);
@@ -44,13 +45,17 @@ void	free_textures(t_game *game)
 	free_texture(game->textures->player);
 	free_texture(game->textures->ground);
 	free_texture(game->textures->wall);
-	free_sprite(game->sprite->ground, game);
-	free_sprite(game->sprite->wall, game);
-	free_sprite(game->sprite->coin, game);
-	free_sprite(game->sprite->exit, game);
-	free_sprite(game->sprite->player, game);
-	free(game->textures);
-	free(game->sprite);
+	if (game->sprite)
+	{
+		free_sprite(game->sprite->ground, game);
+		free_sprite(game->sprite->wall, game);
+		free_sprite(game->sprite->coin, game);
+		free_sprite(game->sprite->exit, game);
+		free_sprite(game->sprite->player, game);
+		free(game->sprite);
+	}
+	if (game->textures)
+		free(game->textures);
 }
 
 void	ft_free(char **str)
