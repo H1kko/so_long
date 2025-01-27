@@ -22,9 +22,20 @@ SRC =	src/main.c \
 		src/map_utils.c \
 		src/manage_movement.c \
 		src/get_next_line/get_next_line.c \
-		src/get_next_line/get_next_line_utils.c 
+		src/get_next_line/get_next_line_utils.c
+		
 
-all : $(NAME)
+MLX :
+	@if ls | grep -q "MLX42"; then \
+		echo "MLX42 already exist"; \
+	else \
+		git clone https://github.com/codam-coding-college/MLX42.git; \
+		cmake ./MLX42 -B ./MLX42/build; \
+		make -C ./MLX42/build --no-print-directory -j4; \
+		make --directory ./MLX42/build; \
+	fi
+
+all : MLX $(NAME)
 
 $(NAME) : libft $(OBJ)
 	cc $(CFLAGS) $(OBJ) $(LIB) $(MLX) -o $(NAME)

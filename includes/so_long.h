@@ -71,7 +71,7 @@ char		**get_map(char *argv, t_game *game);
 t_map		*get_map_as_list(char *argv);
 char		**get_map_as_tab(t_map *lstmap);
 void		ft_free(char **str);
-int		free_game(t_game *game, int textures);
+int			free_game(t_game *game, int textures);
 int			verif_features(char **map);
 void		get_player_coos(char **map, t_game *game);
 void		flood_fill(char **map, int collectibles, int x, int y);
